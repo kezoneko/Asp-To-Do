@@ -1,68 +1,53 @@
-﻿@{
-    ViewData["Title"] = "Задания";
+﻿@model IEnumerable<ToDo.Models.Tasks>
+
+@{
+    ViewData["Title"] = "Список заданий";
 }
 
-<h2>@ViewData["Title"]</h2>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
-<p>Список заданий</p>
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a asp-action="Create">Новое задание</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Редактировать</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Просмотр</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Удалить</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

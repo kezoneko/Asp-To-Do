@@ -1,7 +1,9 @@
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using ToDo.Data;
 
 namespace ToDo
 {
@@ -18,6 +20,9 @@ namespace ToDo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddDbContext<ToDoContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("ToDoContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
