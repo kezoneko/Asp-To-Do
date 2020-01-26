@@ -21,7 +21,7 @@ namespace ToDo.Models
         public string Description { get; set; }
 
         // Поле статуса выполнения задания
-        [Display(Name = "Статус"), UIHint("Status")]
+        [Display(Name = "Статус")]
         public bool Status { get; set; }
     }
 }

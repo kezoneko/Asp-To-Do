@@ -14,7 +14,7 @@
                 }
                 @if (@Html.DisplayTextFor(modelItem => item.Status) == "False")
                 {
-                    <button class="btn btn-primary btn-circle btn-circle-sm"><span>V</span></button>
+                    <a asp-action="Check" asp-route-id="@item.ID" class="btn btn-primary btn-circle btn-circle-sm"><span>V</span></a>
                 }
                 @Html.DisplayFor(modelItem => item.Date) <a asp-action="Details" asp-route-id="@item.ID">@Html.DisplayFor(modelItem => item.Title)</a>
             </td>

@@ -1,0 +1,51 @@
+﻿@model ToDo.Models.Tasks
+
+@{
+    ViewData["Title"] = "Выполнение задания";
+}
+
+<h4>Выполнение задания</h4>
+
+<p>Вы уверены, что выполнили это задание?</p>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd class="col-sm-10">
+            @if (@Html.DisplayTextFor(model => model.Status) == "True")
+            {
+                <p>Выполнено</p>
+            }
+            @if (@Html.DisplayTextFor(model => model.Status) == "False")
+            {
+                <p>Не выполнено</p>
+            }
+        </dd>
+    </dl>
+    
+    <form asp-action="Check">
+        <input type="hidden" asp-for="ID" />
+        <input type="submit" value="Выполнить" class="btn btn-primary" /> |
+        <a asp-action="Index">Назад в список</a>
+    </form>
+</div>

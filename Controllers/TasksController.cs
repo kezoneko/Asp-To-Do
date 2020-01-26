@@ -146,5 +146,35 @@ namespace ToDo.Controllers
         {
             return _context.Tasks.Any(e => e.ID == id);
         }
+
+        // GET: Tasks/Check/5 (Отметка выполнения задания: Подтверждение)
+        public async Task<IActionResult> Check(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var tasks = await _context.Tasks
+                .FirstOrDefaultAsync(m => m.ID == id);
+            if (tasks == null)
+            {
+                return NotFound();
+            }
+
+            return View(tasks);
+        }
+
+        // POST: Tasks/Check/5 (Отметка выполнения задания: Отметка статуса задания из БД)
+        [HttpPost, ActionName("Check")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CheckConfirmed(int id)
+        {
+            var tasks = await _context.Tasks.FindAsync(id);
+            tasks.Status = true;
+            _context.Tasks.Update(tasks);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
