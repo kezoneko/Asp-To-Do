@@ -4,39 +4,60 @@
     ViewData["Title"] = "Просмотр";
 }
 
-<h1>@ViewData["Title"]</h1>
-
 <div>
-    <h4>Задание</h4>
+    <div class="row">
+        <div class="col"><h4>Задание</h4></div>
+        <div class="col-4 text-right">
+            <a asp-action="Delete" asp-route-id="@Model.ID" class="btn btn-danger btn-circle btn-circle-sm"><span>X</span></a>
+            <a asp-action="Edit" asp-route-id="@Model.ID" class="btn btn-warning btn-circle btn-circle-sm"><span>/</span></a>
+        </div>
+    </div>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Title)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Title)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Date)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Date)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Description)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Description)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Status)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Status)
+        <dd class="col-sm-10">
+            @if (@Html.DisplayTextFor(model => model.Status) == "True")
+            {
+                <p>Выполнено</p>
+            }
+            @if (@Html.DisplayTextFor(model => model.Status) == "False")
+            {
+                <p>Не выполнено</p>
+            }
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.ID">Редактировать</a> |
     <a asp-action="Index">Назад в список</a>
 </div>
+
+@if (@Html.DisplayTextFor(model => model.Status) == "False")
+{
+<div class="container fixed-bottom mb-3">
+    <div class="row">
+        <div class="col text-center">
+            <a asp-action="Create" class="btn btn-primary btn-circle btn-circle-lg"><span>V</span></a>
+        </div>
+    </div>
+</div>
+}

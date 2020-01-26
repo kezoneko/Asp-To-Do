@@ -3,8 +3,10 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ToDo</title>
+    <title>@ViewData["Title"] - To-Do</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="~/lib/jqueryui/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/lib/jqueryuitimepickeraddon/jquery-ui-timepicker-addon.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
@@ -21,14 +23,76 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2020 - To-Do
-        </div>
-    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jqueryui/jquery-ui.min.js"></script>
+    <script src="~/lib/jqueryuitimepickeraddon/jquery-ui-timepicker-addon.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        $(document).ready(function () {
+            $.datepicker.regional['ru'] = {
+	            closeText: 'Закрыть',
+	            prevText: '<Пред',
+	            nextText: 'След>',
+	            currentText: 'Сегодня',
+	            monthNames: ['Январь','Февраль','Март','Апрель','Май','Июнь',
+	            'Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
+	            monthNamesShort: ['Янв','Фев','Мар','Апр','Май','Июн',
+	            'Июл','Авг','Сен','Окт','Ноя','Дек'],
+	            dayNames: ['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'],
+	            dayNamesShort: ['вск','пнд','втр','срд','чтв','птн','сбт'],
+	            dayNamesMin: ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'],
+	            weekHeader: 'Не',
+	            dateFormat: 'dd.mm.yy',
+	            firstDay: 1,
+	            isRTL: false,
+	            showMonthAfterYear: false,
+	            yearSuffix: ''
+            };
+            $.datepicker.setDefaults($.datepicker.regional['ru']);
+
+
+            $.timepicker.regional['ru'] = {
+	            timeOnlyTitle: 'Выберите время',
+	            timeText: 'Время',
+	            hourText: 'Часы',
+	            minuteText: 'Минуты',
+	            secondText: 'Секунды',
+	            millisecText: 'Миллисекунды',
+	            timezoneText: 'Часовой пояс',
+	            currentText: 'Сейчас',
+	            closeText: 'Закрыть',
+	            timeFormat: 'HH:mm',
+	            amNames: ['AM', 'A'],
+	            pmNames: ['PM', 'P'],
+	            isRTL: false
+            };
+            $.timepicker.setDefaults($.timepicker.regional['ru']);
+
+            $(function () {
+                $(".date-picker").datetimepicker({
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: "-100:+0",
+                    dateFormat: 'yy-mm-dd',
+                    controlType: 'select',
+                    timeFormat: 'HH:mm',
+                });
+
+            });
+
+            jQuery.validator.methods.date = function (value, element) {
+                var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+                if (isChrome) {
+                    var d = new Date();
+                    return this.optional(element) || !/Invalid|NaN/.test(new Date(d.toLocaleDateString(value)));
+                } else {
+                    return this.optional(element) || !/Invalid|NaN/.test(new Date(value));
+                }
+            };
+
+        });
+    </script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

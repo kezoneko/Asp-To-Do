@@ -4,50 +4,33 @@
     ViewData["Title"] = "Список заданий";
 }
 
-<h1>@ViewData["Title"]</h1>
-
-<p>
-    <a asp-action="Create">Новое задание</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+<table class="table table-borderless">
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Title)
+                @if (@Html.DisplayTextFor(modelItem => item.Status) == "True")
+                {
+                    <div class="btn btn-light btn-circle btn-circle-sm disabled"><span>V</span></div>
+                }
+                @if (@Html.DisplayTextFor(modelItem => item.Status) == "False")
+                {
+                    <button class="btn btn-primary btn-circle btn-circle-sm"><span>V</span></button>
+                }
+                @Html.DisplayFor(modelItem => item.Date) <a asp-action="Details" asp-route-id="@item.ID">@Html.DisplayFor(modelItem => item.Title)</a>
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Редактировать</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Просмотр</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Удалить</a>
+            <td class="col-4 text-right">
+                <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger btn-circle btn-circle-sm"><span>X</span></a>
+                <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-warning btn-circle btn-circle-sm"><span>/</span></a>
             </td>
         </tr>
 }
-    </tbody>
 </table>
+
+
+<div class="container fixed-bottom mb-3">
+    <div class="row">
+        <div class="col text-center">
+            <a asp-action="Create" class="btn btn-success btn-circle btn-circle-lg"><span>+</span></a>
+        </div>
+    </div>
+</div>
